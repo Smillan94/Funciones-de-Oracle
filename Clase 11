@@ -1,0 +1,65 @@
+--Mostrar todos los apellidos de los empleados en Mayúsculas
+
+select UPPER(apellido) as APELLIDOMAYUSCULA from EMP;
+
+--Construir una consulta para que salga la fecha de hoy con el siguiente formato
+--FECHA DE HOY (Martes 06 de Octubre de 2025)
+
+select to_char (sysdate, 'day dd "de" MONTH "de" YYYY') as FECHAACTUAL from dual;
+
+--Ahora en Italiano:
+
+select to_char 
+(sysdate, 'day dd "de" MONTH "de" YYYY', 'nls_date_language=ITALIAN') 
+as FECHAACTUAL from dual;
+
+--Queremos cambiar el departamento de Barcelona y llevarlo a Tabarnia.
+--Para ello tenemos que saber qué empleados cambiarían de localidad y cuáles no.
+--Combinar tablas y mostrar el nombre del departamento junto a los datos del empleado
+
+Select * from dept;
+Select * from emp;
+
+select e.apellido, e.oficio, d.loc, decode(d.loc,'BARCELONA', 'TABERNIA', 'SEVILLA',
+'NO CAMBIA DE LOCALIDAD','NO CAMBIA DE LOCALIDAD' )  as TRASLADO
+from emp e 
+inner join dept d 
+on e.dept_no = d.dept_no; 
+
+--Mirar la fecha de alta del presidente. Visualizar todos los empleados dados 
+--de alta 330 días antes que el presidente
+
+select * from emp;
+
+select apellido, oficio, fecha_alt, 
+to_date(fecha_alt-330)as FECHA_330_DIAS_ANTES 
+from emp;
+
+
+select apellido, oficio, fecha_alt
+from emp
+where fecha_alt < to_Date('17/11/2005');
+
+select * from emp;
+
+SELECT TO_CHAR(apellido) 
+|| '.........' 
+|| TO_CHAR(oficio) 
+|| '.........' 
+|| TO_CHAR(salario) 
+|| '.........' 
+|| '.........'
+|| TO_CHAR(dept_no) 
+|| '.........' as INFORME FROM emp;
+
+select * from emp;
+select TO_CHAR('El señor ') 
+|| TO_CHAR(apellido) 
+|| TO_CHAR(' con cargo de ') 
+||INITCAP(oficio)
+||TO_CHAR(' se dio de alta el ')
+||TO_CHAR(fecha_alt,'dd "de" month "de" YYYY ','nls_date_language=SPANISH' ) 
+as INFORME from emp;
+
+
+
