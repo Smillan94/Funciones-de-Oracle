@@ -175,3 +175,23 @@ for i in 1..v_longitud loop
 END LOOP;
 dbms_output.put_line('La suma de'|| v_texo_numero|| 'es'|| v_suma);
 END;
+
+DECLARE
+  v_texto_numero VARCHAR2(50);
+  v_longitud     INT;
+  v_letra        CHAR(1);
+  v_numero       INT;
+  v_suma         INT;
+BEGIN
+  v_suma := 0;
+  v_texto_numero := '&texto';
+  v_longitud := LENGTH(v_texto_numero);
+  
+  FOR i IN 1..v_longitud LOOP
+    v_letra := SUBSTR(v_texto_numero, i, 1);
+    v_numero := TO_NUMBER(v_letra);
+    v_suma := v_suma + v_numero;
+  END LOOP;
+  
+  DBMS_OUTPUT.PUT_LINE('La suma de ' || v_texto_numero || ' es ' || v_suma);
+END;
