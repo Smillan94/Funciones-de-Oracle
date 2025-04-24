@@ -36,3 +36,4 @@ BEGIN
         || ', Oficio: ' || v_registro.oficio ||' Total: '|| v_registro.total);
      end loop;
 END;
+
